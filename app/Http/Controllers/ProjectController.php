@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Project;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreProject;
+use App\Services\PingService;
 
 class ProjectController extends Controller
 {
@@ -12,9 +14,10 @@ class ProjectController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $projects = $request->user()->projects;
+        return view('projects.index', compact('projects'));
     }
 
     /**
@@ -24,7 +27,7 @@ class ProjectController extends Controller
      */
     public function create()
     {
-        //
+        return view('projects.create');
     }
 
     /**
@@ -33,9 +36,19 @@ class ProjectController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreProject $request, PingService $ping)
     {
-        //
+        // dd($request->user()->id);
+        $request
+            ->user()
+            ->projects()
+            ->create($request->all());
+            //@TODO use Ping service for check
+            //Create first check instance for project
+            // ->checks()
+            // ->create();
+        // $project = Project::create($request->all() + $request);
+        return redirect()->route('projects.index');
     }
 
     /**
@@ -80,6 +93,6 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
-        //
+        $project->delete();    
     }
 }
