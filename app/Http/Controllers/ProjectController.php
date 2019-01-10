@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Project;
-use Illuminate\Http\Request;
 use App\Http\Requests\StoreProject;
+use App\Jobs\QueueProjects;
+use App\Listeners\ProjectCreated;
+use App\Project;
 use App\Services\PingService;
+use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class ProjectController extends Controller
 {
@@ -16,6 +19,7 @@ class ProjectController extends Controller
      */
     public function index(Request $request)
     {
+      
         $projects = $request->user()->projects;
         return view('projects.index', compact('projects'));
     }
