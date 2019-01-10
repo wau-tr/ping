@@ -21,7 +21,7 @@
                     <th scope="row"> {{ $project->id }} </th>
                     <td> {{ $project->name }} </td>
                     <td> {{ $project->url }} </td>
-                    <td> {{ $project->status }} </td>
+                    <td> {{ ($project->checks->last()) ? $project->checks->last()->code : ' ' }} </td>
                 </tr>
             @empty
                 <tr><td>No projects.</td></tr>

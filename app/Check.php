@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Check extends Model
 {
-    protected $fillable = ['name', 'status', 'code', 'info', 'project_id'];
+    protected $fillable = ['code', 'info', 'project_id'];
 
     public function project()
     {

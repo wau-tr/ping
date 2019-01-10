@@ -16,8 +16,7 @@ class CreateChecksTable extends Migration
         Schema::create('checks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('code');
-            $table->string('status');
-            $table->string('info');
+            $table->string('info')->nullable();
             $table->unsignedInteger('project_id');
             $table->foreign('project_id')
                 ->references('id')->on('projects')

@@ -38,16 +38,12 @@ class ProjectController extends Controller
      */
     public function store(StoreProject $request, PingService $ping)
     {
-        // dd($request->user()->id);
-        $request
+        $project = $request
             ->user()
             ->projects()
-            ->create($request->all());
-            //@TODO use Ping service for check
-            //Create first check instance for project
-            // ->checks()
-            // ->create();
-        // $project = Project::create($request->all() + $request);
+            ->create($request->all())
+            ->checks()
+            ->create(['code' => $ping->check($request->get('url'))]);
         return redirect()->route('projects.index');
     }
 
