@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\StartingPingProject;
 use App\Http\Requests\StoreProject;
 use App\Jobs\QueueProjects;
 use App\Listeners\ProjectCreated;
@@ -48,6 +49,7 @@ class ProjectController extends Controller
             ->create($request->all())
             ->checks()
             ->create(['code' => $ping->check($request->get('url'))]);
+        event(new StartingPingProject($order));
         return redirect()->route('projects.index');
     }
 
