@@ -22,6 +22,18 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
+import EchoLibrary from "laravel-echo"
+
+window.Echo = new EchoLibrary({
+    broadcaster: 'pusher',
+    key: '82d15849c7d64e51fc3c'
+});
+
+Echo.channel('projects.1')
+    .listen('ProjectPingUpdated', (e) => {
+        console.log(e.user, e);
+    });
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

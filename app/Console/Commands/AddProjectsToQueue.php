@@ -42,8 +42,10 @@ class AddProjectsToQueue extends Command
      */
     public function handle()
     {
+        // dd(Carbon::now()->subHour());
         Project::whereHas('checks', function ($query) {
-            $query->where('created_at', '<', Carbon::now()->subHour());
+            // $query->whereDate('created_at', '>', Carbon::now()->subHour());
+            $query->whereDate('created_at', '<', Carbon::now()->subHour());
         })
         ->chunk($this->chunkLimit, function ($projects) {
             QueueProjects::dispatch($projects)->onQueue('projects');

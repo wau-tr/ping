@@ -15,6 +15,6 @@ Broadcast::channel('App.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
 });
 
-Broadcast::channel('project.{projectId}', function ($user, $projectId) {
+Broadcast::channel('projects.{projectId}', function ($user, $projectId) {
     return $user->id === App\Project::findOrNew($projectId)->user_id;
 });

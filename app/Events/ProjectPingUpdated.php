@@ -34,6 +34,6 @@ class ProjectPingUpdated implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new PrivateChannel('project.' . $this->project->id);
+        return new PrivateChannel('projects.' . $this->project->id);
     }
 }
