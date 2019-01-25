@@ -22,16 +22,18 @@ window.Vue = require('vue');
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 
-import EchoLibrary from "laravel-echo"
-
+import EchoLibrary from "laravel-echo";
+import Pusher from 'pusher-js';
 window.Echo = new EchoLibrary({
     broadcaster: 'pusher',
     key: '82d15849c7d64e51fc3c'
 });
 
+window.Pusher = require('pusher-js');
+
 Echo.channel('projects.1')
     .listen('ProjectPingUpdated', (e) => {
-        console.log(e.user, e);
+        console.log(e);
     });
 
 /**

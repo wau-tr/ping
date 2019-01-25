@@ -45,10 +45,10 @@ class ProjectController extends Controller
         $project = $request
             ->user()
             ->projects()
-            ->create($request->all())
-            ->checks()
+            ->create($request->all());
+        $project->checks()
             ->create(['code' => $ping->check($request->get('url'))]);
-        event(new ProjectPingUpdated($order));
+        event(new ProjectPingUpdated($project));
         return redirect()->route('projects.index');
     }
 

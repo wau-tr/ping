@@ -33,10 +33,6 @@ class PingProject implements ShouldQueue
      */
     public function handle(PingService $ping)
     {
-        if ($this->project->id == 1) {
-            dd($this->project); 
-        }
-        // dd($this->project->checks->last());
         $this->project->checks()
             ->create(['code' => $ping->check($this->project->url)]);
     }
